@@ -1,11 +1,36 @@
 import path from "path"
 import fs from "fs"
 
-export const createAccount = () => {}
+export const createAccount = (firstName, lasteName, email, privateKey, address) => {
+    const accountData = {
+        firstname: firstName, 
+        lastname: lasteName, 
+        email: email, 
+        privateKey: privateKey, 
+        address: address
+    }
 
-export const transferEth = () => {}
+    // read existing accounts
+    let accounts = []
 
-export const getAccountDetails = () => {}
+    const savedAccounts = fs.readFileSync("./accounts.json", "utf8")
+    accounts.push(savedAccounts)
+    console.log(savedAccounts)
+    console.log(savedAccounts)
+
+    // append new account
+    accounts.push(accountData)
+
+    fs.writeFileSync("./accounts.json", JSON.stringify(accounts))
+    console.log("new account added")
+    return
+}
+
+export const transferEth = (amount, fromPrivateKey, toAddress) => {}
+
+export const getAccountDetails = (email) => {}
+
+export const getBalance = (address) => {}
 
 /**
  * check if a file exists and create if it does not
@@ -19,7 +44,6 @@ export const checkAndCreateFIle = (filePath, initialData) => {
         console.log(`${path.basename(filePath)} created`)
         return
     }else{
-        console.log(`${path.basename(filePath)} already exists`)
         return
     }
 }
